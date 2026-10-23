@@ -1,109 +1,109 @@
-// Smooth reveal animations on scroll
+// Site behavior: hero board, navigation, and scroll reveal
 document.addEventListener('DOMContentLoaded', () => {
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-            }
+    // Decorative hero board, built from rows of letters ('.' is empty).
+    const HERO_STACK = [
+        '..........',
+        '.........I',
+        '.........I',
+        '.........I',
+        '.........I',
+        '..........',
+        '...OO.....',
+        '.ZZOOTTT..',
+        '.TZZSSTLI.',
+        'TTTSSLLLI.',
+        'JIIIILOOI.',
+        'JJJLLLOOI.',
+    ];
+
+    const stack = document.querySelector('[data-hero-stack]');
+    if (stack) {
+        const frag = document.createDocumentFragment();
+        HERO_STACK.forEach((row, r) => {
+            row.split('').forEach((letter) => {
+                const cell = document.createElement('span');
+                cell.className = letter === '.' ? 'cell' : `cell blk b-${letter.toLowerCase()}`;
+                // Bottom rows land first.
+                if (letter !== '.') cell.style.setProperty('--delay', `${(HERO_STACK.length - r) * 70}ms`);
+                frag.appendChild(cell);
+            });
         });
-    }, observerOptions);
+        stack.appendChild(frag);
+    }
 
-    // Observe all sections
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('reveal-on-scroll');
-        observer.observe(section);
+    // Mobile menu
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.getElementById('nav-links');
+    const setMenu = (open) => {
+        toggle.setAttribute('aria-expanded', String(open));
+        links.classList.toggle('is-open', open);
+    };
+    toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+    links.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && links.classList.contains('is-open')) {
+            setMenu(false);
+            toggle.focus();
+        }
     });
 
-    // Observe project cards individually for staggered animation
-    document.querySelectorAll('.project-card').forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-        card.classList.add('reveal-on-scroll');
-        observer.observe(card);
-    });
-
-    // Observe skill categories for staggered animation
-    document.querySelectorAll('.skill-category').forEach((category, index) => {
-        category.style.transitionDelay = `${index * 0.1}s`;
-        category.classList.add('reveal-on-scroll');
-        observer.observe(category);
-    });
-
-    // Observe experience items for staggered animation
-    document.querySelectorAll('.experience-item').forEach((item, index) => {
-        item.style.transitionDelay = `${index * 0.15}s`;
-        item.classList.add('reveal-on-scroll');
-        observer.observe(item);
+    // Replay reopens the gate in place. Without the game script it falls back to ?play.
+    document.querySelectorAll('[data-replay]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            if (!window.TetrisGate) return;
+            e.preventDefault();
+            setMenu(false);
+            window.TetrisGate.open();
+        });
     });
 
     // Navbar background on scroll
     const navbar = document.querySelector('.navbar');
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            navbar.style.background = 'rgba(10, 10, 11, 0.95)';
-            navbar.style.backdropFilter = 'blur(10px)';
-        } else {
-            navbar.style.background = 'linear-gradient(to bottom, var(--color-bg), transparent)';
-            navbar.style.backdropFilter = 'none';
-        }
-        
-        lastScroll = currentScroll;
-    });
+    const updateNav = () => navbar.classList.toggle('is-scrolled', window.scrollY > 40);
+    updateNav();
+    window.addEventListener('scroll', updateNav, { passive: true });
 
     // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener('click', (e) => {
+            const target = document.querySelector(anchor.getAttribute('href'));
+            if (!target) return;
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+            target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+            history.pushState(null, '', anchor.getAttribute('href'));
         });
     });
 
-    // Add CSS for reveal animations
-    const style = document.createElement('style');
-    style.textContent = `
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .reveal-on-scroll.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-    document.head.appendChild(style);
+    // Scroll reveal. Content only starts hidden once this script is running,
+    // so it stays visible if JavaScript fails, and reduced motion skips it.
+    if (reducedMotion || !('IntersectionObserver' in window)) return;
 
-    // Cursor trail effect for added polish (optional, subtle)
-    const hero = document.querySelector('.hero');
-    if (hero && window.matchMedia('(min-width: 768px)').matches) {
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            
-            hero.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(201, 169, 98, 0.03) 0%, transparent 50%)`;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
         });
-    }
+    }, { threshold: 0.1 });
+
+    const reveal = (selector, stagger) => {
+        document.querySelectorAll(selector).forEach((el, index) => {
+            if (stagger) el.style.transitionDelay = `${index * stagger}s`;
+            el.classList.add('reveal-on-scroll');
+            observer.observe(el);
+        });
+    };
+
+    reveal('main section:not(.hero) .section-header');
+    reveal('.card', 0.08);
+    reveal('.skill-category', 0.08);
+    reveal('.level', 0.06);
+    reveal('.stat, .scores, .contact-panel');
 });
 
-// Console greeting for developers
-console.log('%c👋 Hello, fellow developer!', 'font-size: 20px; font-weight: bold;');
-console.log('%cInterested in how this site was built? Let\'s connect!', 'font-size: 14px; color: #c9a962;');
+console.log('Hello, fellow developer. Interested in how this site was built? Let\'s connect.');

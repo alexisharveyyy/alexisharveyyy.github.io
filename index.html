@@ -4,415 +4,556 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexis Harvey | PhD Student in Computer Science</title>
+    <meta name="theme-color" content="#0D0B1A">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cg fill='%23A066E8'%3E%3Crect y='6' width='10' height='10' rx='2.5'/%3E%3Crect x='12' y='6' width='10' height='10' rx='2.5'/%3E%3Crect x='24' y='6' width='10' height='10' rx='2.5'/%3E%3Crect x='12' y='18' width='10' height='10' rx='2.5'/%3E%3C/g%3E%3C/svg%3E">
+    <script>
+        // Decide before first paint whether the Tetris gate covers the page.
+        // ?skip bypasses it, ?play forces it, otherwise returning visitors skip it.
+        (function () {
+            var root = document.documentElement;
+            root.classList.add('js');
+            var params = new URLSearchParams(window.location.search);
+            var show = true;
+            try {
+                if (localStorage.getItem('ah-gate-entered') === '1') show = false;
+            } catch (e) { /* storage unavailable */ }
+            if (params.has('play')) show = true;
+            if (params.has('skip')) show = false;
+            if (show) root.classList.add('gate-open');
+        })();
+    </script>
+    <noscript><style>.gate { display: none !important; }</style></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="grain-overlay"></div>
-    
-    <nav class="navbar">
-        <div class="nav-logo">AH</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#research">Research</a>
-            <a href="#experience">Experience</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+    <!-- Tetris gate: shown over the site on first visit -->
+    <div class="gate" id="gate" role="region" aria-label="Tetris gate: clear one line to enter the site">
+        <div class="gate-inner">
+            <div class="gate-intro">
+                <p class="pixel gate-kicker">ALEXIS HARVEY &middot; PHD STUDENT, CS @ LSU</p>
+                <h2 class="gate-title">Clear one line to enter.</h2>
+                <p class="gate-lede">You versus my Tetris agent. Clear a single line before the bot does and the site unlocks.</p>
+                <a href="?skip" class="gate-skip" data-gate-skip>Skip the game, take me in</a>
+                <dl class="gate-keys" id="gate-keys">
+                    <div><dt><kbd>&larr;</kbd> <kbd>&rarr;</kbd></dt><dd>move</dd></div>
+                    <div><dt><kbd>&uarr;</kbd></dt><dd>rotate</dd></div>
+                    <div><dt><kbd>&darr;</kbd></dt><dd>soft drop</dd></div>
+                    <div><dt><kbd class="kbd-wide">space</kbd></dt><dd>hard drop</dd></div>
+                </dl>
+                <p class="gate-touch">On a touchscreen: swipe left or right to move, tap to rotate, swipe down to drop.</p>
+                <button type="button" class="btn btn-primary gate-start" data-gate-start>Start game</button>
+                <p class="pixel gate-counter">LINES CLEARED: <span data-gate-lines>0</span> / 1</p>
+            </div>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <p class="hero-greeting">Hello, I'm</p>
-                    <h1 class="hero-name">Alexis Harvey</h1>
-                    <p class="hero-title">PhD Student in Computer Science</p>
-                    <p class="hero-description">
-                        Researching applied AI and LLM behavior at Louisiana State University, 
-                        with a focus on how AI and extended reality can support medical training, 
-                        decision-making, and accessibility.
-                    </p>
-                    <div class="hero-cta">
-                        <a href="#research" class="btn btn-primary">View My Research</a>
-                        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="image-frame">
-                        <img src="headshot.jpeg" alt="Alexis Harvey">
-                    </div>
-                    <div class="image-decoration"></div>
-                </div>
-            </div>
-            <div class="scroll-indicator">
-                <span>Scroll</span>
-                <div class="scroll-line"></div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="section-header">
-                <span class="section-number">01</span>
-                <h2>About Me</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="lead">
-                        I'm a PhD student studying how Artificial Intelligence and Extended Reality 
-                        can support decision-making, accessibility, and training in real-world settings.
-                    </p>
-                    <p>
-                        I'm a PhD student in Computer Science at Louisiana State University, advised by 
-                        Dr. Felipe Fronchetti in the RISE Lab and working in collaboration with LSU Health. 
-                        My research interests include applied AI, machine learning, LLM behavior, 
-                        computational social science, and civic technology. My current work looks at 
-                        AI and extended reality in medical procedural training.
-                    </p>
-                    <p>
-                        I earned my B.S. in Computer Science from LSU's Roger Hadfield Ogden Honors College 
-                        with a concentration in Data Science and Analytics and a minor in Mathematics. As an 
-                        undergraduate, I worked as a Student Software Developer at LSU's Center for Analytics 
-                        and Research in Transportation Safety (CARTS), building full-stack applications over 
-                        large relational datasets.
-                    </p>
-                    <p>
-                        Beyond the lab, I'm interested in what happens when Artificial Intelligence meets 
-                        the systems people actually use. That includes Artificial Intelligence for civic 
-                        engagement, like making legislation, elections, and news bias easier for the public 
-                        to understand; machine learning in sports, from valuing collegiate athletes to 
-                        modeling performance; and intelligent devices for healthcare, such as prosthetics 
-                        that monitor patient vitals. Across all of it, my goal is research that helps 
-                        people make better decisions and reaches beyond the paper.
-                    </p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <span class="stat-number">PhD</span>
-                        <span class="stat-label">CS Student, LSU</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Active Research Projects</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">B.S.</span>
-                        <span class="stat-label">CS, Honors College</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Research Section -->
-        <section id="research" class="projects research">
-            <div class="section-header">
-                <span class="section-number">02</span>
-                <h2>Research</h2>
-            </div>
-            <div class="projects-grid">
-                <article class="project-card featured">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-                                <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
-                            </svg>
+            <div class="gate-player">
+                <p class="pixel board-label" id="player-label">YOU</p>
+                <div class="play-area">
+                    <div class="play-main">
+                        <div class="board-wrap">
+                            <div class="board board-player" id="player-board" tabindex="0" role="application"
+                                 aria-labelledby="player-label" aria-describedby="gate-keys">
+                                <div class="board-grid" data-grid aria-hidden="true"></div>
+                            </div>
+                            <p class="pixel board-hint" data-gate-hint aria-hidden="true">PRESS START</p>
+                            <div class="board-result" id="gate-result" hidden>
+                                <p class="pixel result-kicker" data-result-kicker>LINE CLEARED</p>
+                                <p class="result-title" data-result-title>Access granted</p>
+                                <button type="button" class="btn btn-primary" data-result-action>Enter the site</button>
+                                <a href="?skip" class="result-skip" data-gate-skip data-result-skip>or skip the game</a>
+                            </div>
+                        </div>
+                        <p class="pixel row-hint" data-row-hint>FILL THE BOTTOM ROW</p>
+                        <div class="pad" role="group" aria-label="On-screen controls">
+                            <button type="button" class="pad-btn" data-move="left" aria-label="Move left">
+                                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button type="button" class="pad-btn" data-move="rotate" aria-label="Rotate">
+                                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M19 12a7 7 0 1 1-2.05-4.95M19 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button type="button" class="pad-btn" data-move="right" aria-label="Move right">
+                                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <button type="button" class="pad-btn pad-drop pixel" data-move="drop" aria-label="Hard drop">DROP</button>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <span class="project-type">Systematic Mapping Study</span>
+                    <div class="next-box">
+                        <p class="pixel next-box-label" aria-hidden="true">NEXT</p>
+                        <div class="next-slots" aria-hidden="true">
+                            <div class="next-slot" data-next-slot></div>
+                            <div class="next-slot" data-next-slot></div>
+                        </div>
+                        <p class="visually-hidden" data-next-text></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gate-bot">
+                <p class="pixel board-label">BOT &middot; [PLACEHOLDER: agent name]</p>
+                <div class="board board-bot" id="bot-board" aria-hidden="true">
+                    <div class="board-grid" data-grid></div>
+                </div>
+                <div class="bot-panel">
+                    <p class="pixel bot-status-line"><span class="bot-dot" aria-hidden="true"></span><span data-bot-status>waiting for you</span></p>
+                    <dl class="bot-stats pixel">
+                        <div><dt>PIECES</dt><dd data-bot-pieces>0</dd></div>
+                        <div><dt>LINES</dt><dd data-bot-lines>0</dd></div>
+                        <div><dt>EVAL</dt><dd data-bot-eval>--</dd></div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <p class="visually-hidden" id="gate-live" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="site">
+        <nav class="navbar" aria-label="Main">
+            <a href="#top" class="nav-logo" aria-label="Alexis Harvey, back to top">
+                <svg class="logo-mark" viewBox="0 0 34 23" width="34" height="23" aria-hidden="true" focusable="false">
+                    <rect x="0" y="0" width="10" height="10" rx="2.5"/>
+                    <rect x="12" y="0" width="10" height="10" rx="2.5"/>
+                    <rect x="24" y="0" width="10" height="10" rx="2.5"/>
+                    <rect x="12" y="12" width="10" height="10" rx="2.5"/>
+                </svg>
+                <span>AH</span>
+            </a>
+            <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-links">
+                <span class="nav-toggle-bars" aria-hidden="true"></span>
+                <span class="visually-hidden">Menu</span>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="#research">Research</a>
+                <a href="#projects">Projects</a>
+                <a href="#high-scores">High scores</a>
+                <a href="#levels">Levels</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+                <a href="?play" class="nav-replay pixel" data-replay>REPLAY</a>
+            </div>
+        </nav>
+
+        <main id="top">
+            <!-- Hero Section -->
+            <section class="hero" aria-labelledby="site-title">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <p class="pixel badge badge-green">LINE CLEARED &middot; WELCOME IN</p>
+                        <div class="hero-id">
+                            <div class="avatar">
+                                <img src="headshot.jpeg" alt="Alexis Harvey" width="112" height="112">
+                            </div>
+                            <div>
+                                <p class="hero-greeting">Hello, I'm</p>
+                                <h1 class="hero-name" id="site-title" tabindex="-1">Alexis Harvey</h1>
+                            </div>
+                        </div>
+                        <p class="hero-title">PhD Student in Computer Science</p>
+                        <p class="hero-description">
+                            Researching applied AI and LLM behavior at Louisiana State University,
+                            with a focus on how AI and extended reality can support medical training,
+                            decision-making, and accessibility.
+                        </p>
+                        <ul class="chips">
+                            <li>RISE Lab &middot; Dr. Felipe Fronchetti</li>
+                            <li>with LSU Health</li>
+                            <li>B.S. CS, College Honors</li>
+                        </ul>
+                        <div class="hero-cta">
+                            <a href="#research" class="btn btn-primary">View My Research</a>
+                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                        </div>
+                    </div>
+                    <div class="hero-board" aria-hidden="true">
+                        <div class="hero-stack" data-hero-stack></div>
+                        <div class="hero-clear-bar"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="about" aria-labelledby="about-title">
+                <div class="section-header">
+                    <p class="pixel section-label">PLAYER BIO</p>
+                    <h2 id="about-title">About Me</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="lead">
+                            I'm a PhD student studying how Artificial Intelligence and Extended Reality
+                            can support decision-making, accessibility, and training in real-world settings.
+                        </p>
+                        <p>
+                            I'm a PhD student in Computer Science at Louisiana State University, advised by
+                            Dr. Felipe Fronchetti in the RISE Lab and working in collaboration with LSU Health.
+                            My research interests include applied AI, machine learning, LLM behavior,
+                            computational social science, and civic technology. My current work looks at
+                            AI and extended reality in medical procedural training.
+                        </p>
+                        <p>
+                            I earned my B.S. in Computer Science from LSU's Roger Hadfield Ogden Honors College
+                            with a concentration in Data Science and Analytics and a minor in Mathematics. As an
+                            undergraduate, I worked as a Student Software Developer at LSU's Center for Analytics
+                            and Research in Transportation Safety (CARTS), building full-stack applications over
+                            large relational datasets.
+                        </p>
+                        <p>
+                            Beyond the lab, I'm interested in what happens when Artificial Intelligence meets
+                            the systems people actually use. That includes Artificial Intelligence for civic
+                            engagement, like making legislation, elections, and news bias easier for the public
+                            to understand; machine learning in sports, from valuing collegiate athletes to
+                            modeling performance; and intelligent devices for healthcare, such as prosthetics
+                            that monitor patient vitals. Across all of it, my goal is research that helps
+                            people make better decisions and reaches beyond the paper.
+                        </p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat panel">
+                            <span class="stat-number">PhD</span>
+                            <span class="stat-label">CS Student, LSU</span>
+                        </div>
+                        <div class="stat panel">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Active Research Projects</span>
+                        </div>
+                        <div class="stat panel">
+                            <span class="stat-number">B.S.</span>
+                            <span class="stat-label">CS, Honors College</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Research Section -->
+            <section id="research" class="research" aria-labelledby="research-title">
+                <div class="section-header">
+                    <p class="pixel section-label">CURRENT LEVEL</p>
+                    <h2 id="research-title">Research</h2>
+                </div>
+                <div class="card-grid">
+                    <article class="card piece-i">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 46 10" width="46" height="10" aria-hidden="true" focusable="false">
+                                <rect x="0" y="0" width="10" height="10" rx="2.5"/><rect x="12" y="0" width="10" height="10" rx="2.5"/><rect x="24" y="0" width="10" height="10" rx="2.5"/><rect x="36" y="0" width="10" height="10" rx="2.5"/>
+                            </svg>
+                            <span class="card-type">Systematic Mapping Study</span>
+                        </div>
                         <h3>AI and XR in Medical Procedural Training</h3>
                         <p>A PRISMA-aligned systematic mapping study on the joint use of AI and extended reality technologies in medical procedural training, co-authored with Dr. Felipe Fronchetti. Covers six databases (IEEE Xplore, ACM DL, ScienceDirect, SpringerNature, PubMed, Embase) with two-reviewer screening supplemented by a local LLM consistency pass, and maps the literature by clinical domain, AI and XR technology, evaluation type, and level of human intervention.</p>
-                        <div class="project-tech">
-                            <span>Systematic Review</span>
-                            <span>LLM-Assisted Screening</span>
-                            <span>LaTeX / ACM</span>
-                            <span>Python</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-                                <path d="M3.5 13h2.6l2.4-6 3 12 3-9 1.6 3h4.4v-2h-3.2l-2.8-5.5-2.9 8.7L8.4 3.2 4.8 11H3.5z"/>
+                        <ul class="tags">
+                            <li>Systematic Review</li>
+                            <li>LLM-Assisted Screening</li>
+                            <li>LaTeX / ACM</li>
+                            <li>Python</li>
+                        </ul>
+                    </article>
+                    <article class="card piece-z">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 34 22" width="34" height="22" aria-hidden="true" focusable="false">
+                                <rect x="0" y="0" width="10" height="10" rx="2.5"/><rect x="12" y="0" width="10" height="10" rx="2.5"/><rect x="12" y="12" width="10" height="10" rx="2.5"/><rect x="24" y="12" width="10" height="10" rx="2.5"/>
                             </svg>
+                            <span class="card-type">Independent Research</span>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-type">Independent Research</span>
                         <h3>Intelligent Prosthetics for Remote Patient Monitoring</h3>
                         <p>A two-part research paper: a PRISMA-aligned systematic mapping study of AI in prosthetics, followed by the gap-driven design of a prosthesis that extracts vital signs (heart rate, respiratory rate, SpO2, cuffless blood pressure) from arterial pulse signals using a 1D CNN and sequence model with IMU-conditioned motion artifact handling. Built a parametric 3D prosthetic model in Blender via Python to document sensor placement at the brachial pulse site.</p>
-                        <div class="project-tech">
-                            <span>Deep Learning</span>
-                            <span>Signal Processing</span>
-                            <span>Blender / bpy</span>
-                            <span>Python</span>
-                            <span>LaTeX</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                        <ul class="tags">
+                            <li>Deep Learning</li>
+                            <li>Signal Processing</li>
+                            <li>Blender / bpy</li>
+                            <li>Python</li>
+                            <li>LaTeX</li>
+                        </ul>
+                    </article>
+                    <article class="card piece-t">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 34 22" width="34" height="22" aria-hidden="true" focusable="false">
+                                <rect x="0" y="0" width="10" height="10" rx="2.5"/><rect x="12" y="0" width="10" height="10" rx="2.5"/><rect x="24" y="0" width="10" height="10" rx="2.5"/><rect x="12" y="12" width="10" height="10" rx="2.5"/>
                             </svg>
+                            <span class="card-type">Undergraduate Honors Thesis</span>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-type">Undergraduate Honors Thesis</span>
                         <h3>The Agora: Civic Intelligence Platform</h3>
                         <p>A full-stack civic intelligence platform combining live political data with LLM-driven analysis. Features LegisLens (RAG-based legal research over ChromaDB with a custom bias lexicon), a Media Bias Analyzer, an interactive D3 news map, an electoral data dashboard, and a Congress.gov bills scraper feeding legislative analytics.</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>TypeScript</span>
-                            <span>FastAPI</span>
-                            <span>ChromaDB</span>
-                            <span>PostgreSQL</span>
-                            <span>Google Cloud Run</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://youtu.be/pzQLHgXiQN4" target="_blank" rel="noopener noreferrer" class="project-link">Watch Demo →</a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
+                        <ul class="tags">
+                            <li>React</li>
+                            <li>TypeScript</li>
+                            <li>FastAPI</li>
+                            <li>ChromaDB</li>
+                            <li>PostgreSQL</li>
+                            <li>Google Cloud Run</li>
+                        </ul>
+                        <a href="https://youtu.be/pzQLHgXiQN4" target="_blank" rel="noopener noreferrer" class="card-link">Watch Demo<span class="visually-hidden"> (opens in a new tab)</span></a>
+                    </article>
+                </div>
+            </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="experience">
-            <div class="section-header">
-                <span class="section-number">03</span>
-                <h2>Experience</h2>
-            </div>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <div class="experience-date">Aug 2026 – Present</div>
-                    <div class="experience-content">
-                        <h3>PhD Student, Computer Science</h3>
-                        <p class="experience-org">Louisiana State University – RISE Lab</p>
-                        <p>Conducting research on applied AI and LLMs under Dr. Felipe Fronchetti, in collaboration with LSU Health. Leading a systematic mapping study on AI and XR in medical procedural training and designing a VR user study.</p>
-                    </div>
+            <!-- Projects Section -->
+            <section id="projects" class="projects" aria-labelledby="projects-title">
+                <div class="section-header">
+                    <p class="pixel section-label">PIECES PLACED</p>
+                    <h2 id="projects-title">Featured Projects</h2>
                 </div>
-                <div class="experience-item">
-                    <div class="experience-date">Sep 2025 – Jan 2026</div>
-                    <div class="experience-content">
-                        <h3>Student Software Developer</h3>
-                        <p class="experience-org">Louisiana State University – CARTS</p>
-                        <p>Developed and tested full-stack applications using C#, JavaScript, SQL, and front-end frameworks. Managed large relational datasets and contributed to software support and enhancement for transportation safety research.</p>
-                    </div>
-                </div>
-                <div class="experience-item">
-                    <div class="experience-date">Nov 2024 – Dec 2025</div>
-                    <div class="experience-content">
-                        <h3>Chapter President</h3>
-                        <p class="experience-org">Delta Zeta Sigma Chapter, Baton Rouge, LA</p>
-                        <p>Led 400+ members, ran Executive Council meetings, planned events, managed budgets and contracts, and ensured chapter alignment with national standards.</p>
-                    </div>
-                </div>
-                <div class="experience-item">
-                    <div class="experience-date">Jul 2024 – Sep 2024</div>
-                    <div class="experience-content">
-                        <h3>Legal Clerk Extern</h3>
-                        <p class="experience-org">19th Judicial District Court, Baton Rouge, LA</p>
-                        <p>Collaborated with Judge Kelly Balfour and staff on legal proceedings, document preparation, and case research.</p>
-                    </div>
-                </div>
-                <div class="experience-item">
-                    <div class="experience-date">Aug 2022 – May 2024</div>
-                    <div class="experience-content">
-                        <h3>Men's Basketball Manager</h3>
-                        <p class="experience-org">LSU Men's Basketball</p>
-                        <p>Managed team statistics, assisted coaches with recruitment and footage gathering, maintained equipment, and supported player conditioning.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="skills">
-            <div class="section-header">
-                <span class="section-number">04</span>
-                <h2>Technical Skills</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Programming Languages</h3>
-                    <ul class="skill-list">
-                        <li><span class="skill-dot"></span>Python</li>
-                        <li><span class="skill-dot"></span>TypeScript / JavaScript</li>
-                        <li><span class="skill-dot"></span>C / C++</li>
-                        <li><span class="skill-dot"></span>C#</li>
-                        <li><span class="skill-dot"></span>Java</li>
-                        <li><span class="skill-dot"></span>SQL</li>
-                        <li><span class="skill-dot"></span>HTML / CSS</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>AI & Machine Learning</h3>
-                    <ul class="skill-list">
-                        <li><span class="skill-dot"></span>PyTorch</li>
-                        <li><span class="skill-dot"></span>XGBoost</li>
-                        <li><span class="skill-dot"></span>RAG Pipelines</li>
-                        <li><span class="skill-dot"></span>LLM Integration & Evaluation</li>
-                        <li><span class="skill-dot"></span>ChromaDB / pgvector</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Frameworks & Platforms</h3>
-                    <ul class="skill-list">
-                        <li><span class="skill-dot"></span>React / Vite</li>
-                        <li><span class="skill-dot"></span>FastAPI / Django</li>
-                        <li><span class="skill-dot"></span>.NET</li>
-                        <li><span class="skill-dot"></span>PostgreSQL / SQLAlchemy</li>
-                        <li><span class="skill-dot"></span>Apache Spark / HDFS</li>
-                        <li><span class="skill-dot"></span>Firebase / Google Cloud</li>
-                        <li><span class="skill-dot"></span>Git & GitHub</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Research Methods</h3>
-                    <ul class="skill-list">
-                        <li><span class="skill-dot"></span>Systematic Mapping Studies</li>
-                        <li><span class="skill-dot"></span>User Study Design</li>
-                        <li><span class="skill-dot"></span>Usability & Accessibility Evaluation</li>
-                        <li><span class="skill-dot"></span>Data Analytics</li>
-                        <li><span class="skill-dot"></span>LaTeX / Overleaf</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="languages-section">
-                <h3>Languages</h3>
-                <div class="language-tags">
-                    <span class="language-tag">English <em>(Fluent)</em></span>
-                    <span class="language-tag">Spanish <em>(Proficient)</em></span>
-                    <span class="language-tag">German <em>(Beginner)</em></span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects">
-            <div class="section-header">
-                <span class="section-number">05</span>
-                <h2>Featured Projects</h2>
-            </div>
-            <div class="projects-grid">
-                
-                <article class="project-card featured">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-                                <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+                <div class="card-grid card-grid-2">
+                    <article class="card piece-o">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 22 22" width="22" height="22" aria-hidden="true" focusable="false">
+                                <rect x="0" y="0" width="10" height="10" rx="2.5"/><rect x="12" y="0" width="10" height="10" rx="2.5"/><rect x="0" y="12" width="10" height="10" rx="2.5"/><rect x="12" y="12" width="10" height="10" rx="2.5"/>
                             </svg>
+                            <span class="card-type">Independent Project</span>
+                            <span class="pixel card-flag">IN DEVELOPMENT</span>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-type">Independent Project</span>
                         <h3>NowIL</h3>
                         <p>A longitudinal NIL valuation platform for collegiate athletes, currently in active development as a real product. Tracks and dynamically projects estimated NIL values from live in-game performance using Playwright data collection, a PostgreSQL/SQLAlchemy backend, PyTorch LSTM and XGBoost models tracked with MLflow, and a FastAPI service layer.</p>
-                        <div class="project-tech">
-                            <span>PyTorch</span>
-                            <span>XGBoost</span>
-                            <span>FastAPI</span>
-                            <span>PostgreSQL</span>
-                            <span>MLflow</span>
-                            <span>Playwright</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        <ul class="tags">
+                            <li>PyTorch</li>
+                            <li>XGBoost</li>
+                            <li>FastAPI</li>
+                            <li>PostgreSQL</li>
+                            <li>MLflow</li>
+                            <li>Playwright</li>
+                        </ul>
+                    </article>
+                    <article class="card piece-s">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 34 22" width="34" height="22" aria-hidden="true" focusable="false">
+                                <rect x="12" y="0" width="10" height="10" rx="2.5"/><rect x="24" y="0" width="10" height="10" rx="2.5"/><rect x="0" y="12" width="10" height="10" rx="2.5"/><rect x="12" y="12" width="10" height="10" rx="2.5"/>
                             </svg>
+                            <span class="card-type">Deep Learning</span>
+                            <span class="pixel card-flag">ECE 0.029</span>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-type">Deep Learning</span>
                         <h3>What-If Sports</h3>
                         <p>A multi-task deep learning NIL valuation simulator for Division I men's basketball and a counterfactual companion to NowIL. Pairs a BiLSTM with attention against a multi-task Transformer with a shared encoder and separate classification and regression heads. XGBoost won on raw accuracy, while the Transformer achieved superior calibration (ECE 0.029).</p>
-                        <div class="project-tech">
-                            <span>PyTorch</span>
-                            <span>Transformers</span>
-                            <span>XGBoost</span>
-                            <span>FastAPI</span>
-                            <span>Plotly</span>
+                        <ul class="tags">
+                            <li>PyTorch</li>
+                            <li>Transformers</li>
+                            <li>XGBoost</li>
+                            <li>FastAPI</li>
+                            <li>Plotly</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/alexisharveyyy/What-If-Sports" target="_blank" rel="noopener noreferrer" class="card-link">View on GitHub &rarr;<span class="visually-hidden"> (opens in a new tab)</span></a>
                         </div>
-                    </div>
-                </article>
-                <article class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48">
-                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </article>
+                    <article class="card piece-l">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 34 22" width="34" height="22" aria-hidden="true" focusable="false">
+                                <rect x="24" y="0" width="10" height="10" rx="2.5"/><rect x="0" y="12" width="10" height="10" rx="2.5"/><rect x="12" y="12" width="10" height="10" rx="2.5"/><rect x="24" y="12" width="10" height="10" rx="2.5"/>
                             </svg>
+                            <span class="card-type">Industry-Academic Project</span>
+                            <a href="https://www.wbrz.com/news/lsu-students-present-how-ai-could-be-used-in-different-industries-during-showcase-monday/" target="_blank" rel="noopener noreferrer" class="pixel card-flag card-flag-link">AS SEEN ON WBRZ<span class="visually-hidden"> (opens in a new tab)</span></a>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <span class="project-type">Industry-Academic Project</span>
                         <h3>Contract Wizard</h3>
                         <p>AI-powered legal document platform built with Performance Contractors, featuring semantic search and LLM-driven clause summarization over a legal document repository with PDF ingestion workflows. Featured in WBRZ's coverage of LSU's AI showcase.</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>TypeScript</span>
-                            <span>FastAPI</span>
-                            <span>PostgreSQL</span>
+                        <ul class="tags">
+                            <li>React</li>
+                            <li>TypeScript</li>
+                            <li>FastAPI</li>
+                            <li>PostgreSQL</li>
+                        </ul>
+                    </article>
+                    <article class="card card-arena piece-j">
+                        <div class="card-top">
+                            <svg class="piece-icon" viewBox="0 0 34 22" width="34" height="22" aria-hidden="true" focusable="false">
+                                <rect x="0" y="0" width="10" height="10" rx="2.5"/><rect x="0" y="12" width="10" height="10" rx="2.5"/><rect x="12" y="12" width="10" height="10" rx="2.5"/><rect x="24" y="12" width="10" height="10" rx="2.5"/>
+                            </svg>
                         </div>
-                        <div class="project-links">
-                            <a href="https://www.wbrz.com/news/lsu-students-present-how-ai-could-be-used-in-different-industries-during-showcase-monday/" target="_blank" rel="noopener noreferrer" class="project-link">News Coverage →</a>
+                        <h3>Tetris ML Arena</h3>
+                        <p>The bot you just played. A Python game where a human plays Tetris side by side against machine learning and deep learning agents.</p>
+                        <a href="https://github.com/alexisharveyyy/tetris-ml-arena" target="_blank" rel="noopener noreferrer" class="card-link">View on GitHub<span class="visually-hidden"> (opens in a new tab)</span></a>
+                    </article>
+                </div>
+            </section>
+
+            <!-- High Scores (Honors) Section -->
+            <section id="high-scores" class="high-scores" aria-labelledby="scores-title">
+                <div class="scores panel">
+                    <h2 class="pixel scores-title" id="scores-title">HIGH SCORES</h2>
+                    <table class="scores-table pixel">
+                        <caption class="visually-hidden">Honors and awards</caption>
+                        <thead>
+                            <tr><th scope="col">RANK</th><th scope="col">HONOR</th><th scope="col">YEAR</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1ST</td><td>Board of Supervisors Scholarship</td><td>NOW</td></tr>
+                            <tr><td>2ND</td><td>College Honors, Ogden Honors College</td><td>2026</td></tr>
+                            <tr><td>3RD</td><td>LSU Alumni Scholar</td><td>22-26</td></tr>
+                            <tr><td>4TH</td><td>President's Honor Roll</td><td>F25</td></tr>
+                            <tr><td>5TH</td><td>Dean's List x4</td><td>F22 S23 S24 S26</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Levels Completed (Experience) Section -->
+            <section id="levels" class="levels" aria-labelledby="levels-title">
+                <div class="section-header">
+                    <p class="pixel section-label">EXPERIENCE</p>
+                    <h2 id="levels-title">Levels completed</h2>
+                </div>
+                <ol class="level-list">
+                    <li class="level level-current">
+                        <div class="level-meta">
+                            <span class="pixel level-num">LVL 6</span>
+                            <span class="pixel level-date">AUG 2026 &middot; IN PROGRESS</span>
+                        </div>
+                        <h3>PhD Student, RISE Lab</h3>
+                        <p class="level-org">Louisiana State University</p>
+                        <p>Conducting research on applied AI and LLMs under Dr. Felipe Fronchetti, in collaboration with LSU Health. Leading a systematic mapping study on AI and XR in medical procedural training and designing a VR user study.</p>
+                    </li>
+                    <li class="level">
+                        <div class="level-meta">
+                            <span class="pixel level-num">LVL 5</span>
+                            <span class="pixel level-date">SEP 2025 TO JAN 2026</span>
+                        </div>
+                        <h3>Student Software Developer, CARTS</h3>
+                        <p class="level-org">Louisiana State University</p>
+                        <p>Developed and tested full-stack applications using C#, JavaScript, SQL, and front-end frameworks. Managed large relational datasets and contributed to software support and enhancement for transportation safety research.</p>
+                    </li>
+                    <li class="level">
+                        <div class="level-meta">
+                            <span class="pixel level-num">LVL 4</span>
+                            <span class="pixel level-date">NOV 2024 TO DEC 2025</span>
+                        </div>
+                        <h3>Chapter President, Delta Zeta Sigma Chapter</h3>
+                        <p class="level-org">Baton Rouge, LA</p>
+                        <p>Led 400+ members, ran Executive Council meetings, planned events, managed budgets and contracts, and ensured chapter alignment with national standards.</p>
+                    </li>
+                    <li class="level">
+                        <div class="level-meta">
+                            <span class="pixel level-num">LVL 3</span>
+                            <span class="pixel level-date">JUL TO SEP 2024</span>
+                        </div>
+                        <h3>Legal Clerk Extern, 19th Judicial District Court</h3>
+                        <p class="level-org">Baton Rouge, LA</p>
+                        <p>Collaborated with Judge Kelly Balfour and staff on legal proceedings, document preparation, and case research.</p>
+                    </li>
+                    <li class="level">
+                        <div class="level-meta">
+                            <span class="pixel level-num">LVL 2</span>
+                            <span class="pixel level-date">MAY 2026</span>
+                        </div>
+                        <h3>B.S. Computer Science, LSU</h3>
+                        <p class="level-org">Roger Hadfield Ogden Honors College</p>
+                        <p>Data Science and Analytics concentration, Mathematics minor, College Honors.</p>
+                    </li>
+                    <li class="level">
+                        <div class="level-meta">
+                            <span class="pixel level-num">LVL 1</span>
+                            <span class="pixel level-date">AUG 2022 TO MAY 2024</span>
+                        </div>
+                        <h3>Men's Basketball Manager, LSU</h3>
+                        <p class="level-org">LSU Men's Basketball</p>
+                        <p>Managed team statistics, assisted coaches with recruitment and footage gathering, maintained equipment, and supported player conditioning.</p>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="skills" aria-labelledby="skills-title">
+                <div class="section-header">
+                    <p class="pixel section-label">INVENTORY</p>
+                    <h2 id="skills-title">Technical Skills</h2>
+                </div>
+                <div class="inventory">
+                    <div class="skill-category piece-i">
+                        <h3><span class="swatch" aria-hidden="true"></span>Programming Languages</h3>
+                        <ul class="slots">
+                            <li>Python</li>
+                            <li>TypeScript / JavaScript</li>
+                            <li>C / C++</li>
+                            <li>C#</li>
+                            <li>Java</li>
+                            <li>SQL</li>
+                            <li>HTML / CSS</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category piece-t">
+                        <h3><span class="swatch" aria-hidden="true"></span>AI &amp; Machine Learning</h3>
+                        <ul class="slots">
+                            <li>PyTorch</li>
+                            <li>XGBoost</li>
+                            <li>RAG Pipelines</li>
+                            <li>LLM Integration &amp; Evaluation</li>
+                            <li>ChromaDB / pgvector</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category piece-s">
+                        <h3><span class="swatch" aria-hidden="true"></span>Frameworks &amp; Platforms</h3>
+                        <ul class="slots">
+                            <li>React / Vite</li>
+                            <li>FastAPI / Django</li>
+                            <li>.NET</li>
+                            <li>PostgreSQL / SQLAlchemy</li>
+                            <li>Apache Spark / HDFS</li>
+                            <li>Firebase / Google Cloud</li>
+                            <li>Git &amp; GitHub</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category piece-l">
+                        <h3><span class="swatch" aria-hidden="true"></span>Research Methods</h3>
+                        <ul class="slots">
+                            <li>Systematic Mapping Studies</li>
+                            <li>User Study Design</li>
+                            <li>Usability &amp; Accessibility Evaluation</li>
+                            <li>Data Analytics</li>
+                            <li>LaTeX / Overleaf</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category piece-o">
+                        <h3><span class="swatch" aria-hidden="true"></span>Languages</h3>
+                        <ul class="slots">
+                            <li>English <em>(Fluent)</em></li>
+                            <li>Spanish <em>(Proficient)</em></li>
+                            <li>German <em>(Beginner)</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact" aria-labelledby="contact-title">
+                <div class="contact-panel panel">
+                    <div class="next-piece" aria-hidden="true">
+                        <span class="pixel next-label">NEXT PIECE</span>
+                        <span class="next-you">You?</span>
+                    </div>
+                    <div class="contact-body">
+                        <h2 id="contact-title">Let's build something together.</h2>
+                        <p class="contact-text">
+                            I'm always open to discussing research collaborations, applied AI projects,
+                            or ways to build technology with real-world impact.
+                        </p>
+                        <div class="contact-buttons">
+                            <a href="mailto:alexis@harveyfamilia.com" class="btn btn-primary">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                                    <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                                </svg>
+                                Email
+                            </a>
+                            <a href="https://github.com/alexisharveyyy" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                GitHub<span class="visually-hidden"> (opens in a new tab)</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/alexis-harvey-334bb520b/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                                LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
+                            </a>
                         </div>
                     </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <div class="section-header">
-                <span class="section-number">06</span>
-                <h2>Let's Connect</h2>
-            </div>
-            <div class="contact-content">
-                <p class="contact-text">
-                    I'm always open to discussing research collaborations, applied AI projects, 
-                    or ways to build technology with real-world impact.
-                </p>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/alexis-harvey-334bb520b/" target="_blank" rel="noopener noreferrer" class="social-link">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/alexisharveyyy" target="_blank" rel="noopener noreferrer" class="social-link">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                        <span>GitHub</span>
-                    </a>
-                    <a href="mailto:alexis@harveyfamilia.com" class="social-link">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
-                        </svg>
-                        <span>Email</span>
-                    </a>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <footer class="footer">
-        <p>Designed & Built by Alexis Harvey</p>
-        <p class="footer-year">© 2026</p>
-    </footer>
+        <footer class="footer">
+            <p>Designed &amp; built by Alexis Harvey &middot; &copy; 2026</p>
+        </footer>
+    </div>
 
+    <script src="tetris.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
