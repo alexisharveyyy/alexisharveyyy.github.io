@@ -5,109 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexis Harvey | PhD Student in Computer Science</title>
     <meta name="theme-color" content="#0D0B1A">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cg fill='%23A066E8'%3E%3Crect y='6' width='10' height='10' rx='2.5'/%3E%3Crect x='12' y='6' width='10' height='10' rx='2.5'/%3E%3Crect x='24' y='6' width='10' height='10' rx='2.5'/%3E%3Crect x='12' y='18' width='10' height='10' rx='2.5'/%3E%3C/g%3E%3C/svg%3E">
-    <script>
-        // Decide before first paint whether the Tetris gate covers the page.
-        // ?skip bypasses it, ?play forces it, otherwise returning visitors skip it.
-        (function () {
-            var root = document.documentElement;
-            root.classList.add('js');
-            var params = new URLSearchParams(window.location.search);
-            var show = true;
-            try {
-                if (localStorage.getItem('ah-gate-entered') === '1') show = false;
-            } catch (e) { /* storage unavailable */ }
-            if (params.has('play')) show = true;
-            if (params.has('skip')) show = false;
-            if (show) root.classList.add('gate-open');
-        })();
-    </script>
-    <noscript><style>.gate { display: none !important; }</style></noscript>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Tetris gate: shown over the site on first visit -->
-    <div class="gate" id="gate" role="region" aria-label="Tetris gate: clear one line to enter the site">
-        <div class="gate-inner">
-            <div class="gate-intro">
-                <p class="pixel gate-kicker">ALEXIS HARVEY &middot; PHD STUDENT, CS @ LSU</p>
-                <h2 class="gate-title">Clear one line to enter.</h2>
-                <p class="gate-lede">You versus my Tetris agent. Clear a single line before the bot does and the site unlocks.</p>
-                <a href="?skip" class="gate-skip" data-gate-skip>Skip the game, take me in</a>
-                <dl class="gate-keys" id="gate-keys">
-                    <div><dt><kbd>&larr;</kbd> <kbd>&rarr;</kbd></dt><dd>move</dd></div>
-                    <div><dt><kbd>&uarr;</kbd></dt><dd>rotate</dd></div>
-                    <div><dt><kbd>&darr;</kbd></dt><dd>soft drop</dd></div>
-                    <div><dt><kbd class="kbd-wide">space</kbd></dt><dd>hard drop</dd></div>
-                </dl>
-                <p class="gate-touch">On a touchscreen: swipe left or right to move, tap to rotate, swipe down to drop.</p>
-                <button type="button" class="btn btn-primary gate-start" data-gate-start>Start game</button>
-                <p class="pixel gate-counter">LINES CLEARED: <span data-gate-lines>0</span> / 1</p>
-            </div>
-
-            <div class="gate-player">
-                <p class="pixel board-label" id="player-label">YOU</p>
-                <div class="play-area">
-                    <div class="play-main">
-                        <div class="board-wrap">
-                            <div class="board board-player" id="player-board" tabindex="0" role="application"
-                                 aria-labelledby="player-label" aria-describedby="gate-keys">
-                                <div class="board-grid" data-grid aria-hidden="true"></div>
-                            </div>
-                            <p class="pixel board-hint" data-gate-hint aria-hidden="true">PRESS START</p>
-                            <div class="board-result" id="gate-result" hidden>
-                                <p class="pixel result-kicker" data-result-kicker>LINE CLEARED</p>
-                                <p class="result-title" data-result-title>Access granted</p>
-                                <button type="button" class="btn btn-primary" data-result-action>Enter the site</button>
-                                <a href="?skip" class="result-skip" data-gate-skip data-result-skip>or skip the game</a>
-                            </div>
-                        </div>
-                        <p class="pixel row-hint" data-row-hint>FILL THE BOTTOM ROW</p>
-                        <div class="pad" role="group" aria-label="On-screen controls">
-                            <button type="button" class="pad-btn" data-move="left" aria-label="Move left">
-                                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <button type="button" class="pad-btn" data-move="rotate" aria-label="Rotate">
-                                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M19 12a7 7 0 1 1-2.05-4.95M19 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <button type="button" class="pad-btn" data-move="right" aria-label="Move right">
-                                <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </button>
-                            <button type="button" class="pad-btn pad-drop pixel" data-move="drop" aria-label="Hard drop">DROP</button>
-                        </div>
-                    </div>
-                    <div class="next-box">
-                        <p class="pixel next-box-label" aria-hidden="true">NEXT</p>
-                        <div class="next-slots" aria-hidden="true">
-                            <div class="next-slot" data-next-slot></div>
-                            <div class="next-slot" data-next-slot></div>
-                        </div>
-                        <p class="visually-hidden" data-next-text></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="gate-bot">
-                <p class="pixel board-label">BOT &middot; [PLACEHOLDER: agent name]</p>
-                <div class="board board-bot" id="bot-board" aria-hidden="true">
-                    <div class="board-grid" data-grid></div>
-                </div>
-                <div class="bot-panel">
-                    <p class="pixel bot-status-line"><span class="bot-dot" aria-hidden="true"></span><span data-bot-status>waiting for you</span></p>
-                    <dl class="bot-stats pixel">
-                        <div><dt>PIECES</dt><dd data-bot-pieces>0</dd></div>
-                        <div><dt>LINES</dt><dd data-bot-lines>0</dd></div>
-                        <div><dt>EVAL</dt><dd data-bot-eval>--</dd></div>
-                    </dl>
-                </div>
-            </div>
-        </div>
-        <p class="visually-hidden" id="gate-live" role="status" aria-live="polite"></p>
-    </div>
-
     <div class="site">
         <nav class="navbar" aria-label="Main">
             <a href="#top" class="nav-logo" aria-label="Alexis Harvey, back to top">
@@ -130,7 +30,6 @@
                 <a href="#levels">Levels</a>
                 <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
-                <a href="?play" class="nav-replay pixel" data-replay>REPLAY</a>
             </div>
         </nav>
 
@@ -139,7 +38,6 @@
             <section class="hero" aria-labelledby="site-title">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <p class="pixel badge badge-green">LINE CLEARED &middot; WELCOME IN</p>
                         <div class="hero-id">
                             <div class="avatar">
                                 <img src="headshot.jpeg" alt="Alexis Harvey" width="112" height="112">
@@ -164,10 +62,6 @@
                             <a href="#research" class="btn btn-primary">View My Research</a>
                             <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                         </div>
-                    </div>
-                    <div class="hero-board" aria-hidden="true">
-                        <div class="hero-stack" data-hero-stack></div>
-                        <div class="hero-clear-bar"></div>
                     </div>
                 </div>
             </section>
@@ -553,7 +447,6 @@
         </footer>
     </div>
 
-    <script src="tetris.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

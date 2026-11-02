@@ -1,37 +1,6 @@
-// Site behavior: hero board, navigation, and scroll reveal
+// Site behavior: navigation and scroll reveal
 document.addEventListener('DOMContentLoaded', () => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Decorative hero board, built from rows of letters ('.' is empty).
-    const HERO_STACK = [
-        '..........',
-        '.........I',
-        '.........I',
-        '.........I',
-        '.........I',
-        '..........',
-        '...OO.....',
-        '.ZZOOTTT..',
-        '.TZZSSTLI.',
-        'TTTSSLLLI.',
-        'JIIIILOOI.',
-        'JJJLLLOOI.',
-    ];
-
-    const stack = document.querySelector('[data-hero-stack]');
-    if (stack) {
-        const frag = document.createDocumentFragment();
-        HERO_STACK.forEach((row, r) => {
-            row.split('').forEach((letter) => {
-                const cell = document.createElement('span');
-                cell.className = letter === '.' ? 'cell' : `cell blk b-${letter.toLowerCase()}`;
-                // Bottom rows land first.
-                if (letter !== '.') cell.style.setProperty('--delay', `${(HERO_STACK.length - r) * 70}ms`);
-                frag.appendChild(cell);
-            });
-        });
-        stack.appendChild(frag);
-    }
 
     // Mobile menu
     const toggle = document.querySelector('.nav-toggle');
@@ -49,16 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setMenu(false);
             toggle.focus();
         }
-    });
-
-    // Replay reopens the gate in place. Without the game script it falls back to ?play.
-    document.querySelectorAll('[data-replay]').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            if (!window.TetrisGate) return;
-            e.preventDefault();
-            setMenu(false);
-            window.TetrisGate.open();
-        });
     });
 
     // Navbar background on scroll
