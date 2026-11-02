@@ -519,6 +519,21 @@ h3 {
         gap: 0 20px;
     }
 
+    /* Without JavaScript the toggle cannot work, so the links stay visible. */
+    .js .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .js .nav-links {
+        display: none;
+        flex-direction: column;
+    }
+
+    .js .nav-links.is-open {
+        display: flex;
+    }
+
     .nav-links a {
         display: inline-flex;
         align-items: center;
@@ -562,6 +577,24 @@ h3 {
     .exp {
         grid-template-columns: minmax(0, 1fr);
         gap: 2px;
+    }
+}
+
+/* ===========================
+   Scroll fade-in (classes added by script.js)
+   =========================== */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fade-in.is-visible {
+    opacity: 1;
+}
+
+@media print {
+    .fade-in {
+        opacity: 1;
     }
 }
 

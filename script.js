@@ -1,4 +1,7 @@
-// Site behavior: navigation and scroll reveal
+// Site behavior: anchor scrolling, mobile menu, and scroll fade-in.
+// The page is fully visible and usable without this file.
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', () => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -20,49 +23,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Navbar background on scroll
-    const navbar = document.querySelector('.navbar');
-    const updateNav = () => navbar.classList.toggle('is-scrolled', window.scrollY > 40);
-    updateNav();
-    window.addEventListener('scroll', updateNav, { passive: true });
-
-    // Smooth scroll for anchor links
+    // Smooth scroll for anchor links. Focus follows so the next Tab starts at the target.
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener('click', (e) => {
             const target = document.querySelector(anchor.getAttribute('href'));
             if (!target) return;
             e.preventDefault();
             target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+            target.setAttribute('tabindex', '-1');
+            target.focus({ preventScroll: true });
             history.pushState(null, '', anchor.getAttribute('href'));
         });
     });
 
-    // Scroll reveal. Content only starts hidden once this script is running,
+    // Scroll fade-in. Content only starts hidden once this script is running,
     // so it stays visible if JavaScript fails, and reduced motion skips it.
     if (reducedMotion || !('IntersectionObserver' in window)) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
+                entry.target.classList.add('is-visible');
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    });
 
-    const reveal = (selector, stagger) => {
-        document.querySelectorAll(selector).forEach((el, index) => {
-            if (stagger) el.style.transitionDelay = `${index * stagger}s`;
-            el.classList.add('reveal-on-scroll');
-            observer.observe(el);
-        });
-    };
-
-    reveal('main section:not(.hero) .section-header');
-    reveal('.card', 0.08);
-    reveal('.skill-category', 0.08);
-    reveal('.level', 0.06);
-    reveal('.stat, .scores, .contact-panel');
+    document.querySelectorAll('.content section').forEach((section) => {
+        section.classList.add('fade-in');
+        observer.observe(section);
+    });
 });
-
-console.log('Hello, fellow developer. Interested in how this site was built? Let\'s connect.');
