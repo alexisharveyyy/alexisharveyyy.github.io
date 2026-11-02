@@ -41,31 +41,227 @@
         </aside>
 
         <main class="content">
+            <section class="intro" aria-label="About">
+                <p class="lead">
+                    I'm a PhD student studying how Artificial Intelligence and Extended Reality
+                    can support decision-making, accessibility, and training in real-world settings.
+                </p>
+                <p>
+                    I'm a PhD student in Computer Science at Louisiana State University, advised by
+                    Dr. Felipe Fronchetti in the RISE Lab and working in collaboration with LSU Health.
+                    My research interests include applied AI, machine learning, LLM behavior,
+                    computational social science, and civic technology. My current work looks at
+                    AI and extended reality in medical procedural training.
+                </p>
+                <p>
+                    I earned my B.S. in Computer Science from LSU's Roger Hadfield Ogden Honors College
+                    with a concentration in Data Science and Analytics and a minor in Mathematics. As an
+                    undergraduate, I worked as a Student Software Developer at LSU's Center for Analytics
+                    and Research in Transportation Safety (CARTS), building full-stack applications over
+                    large relational datasets.
+                </p>
+                <p>
+                    Beyond the lab, I'm interested in what happens when Artificial Intelligence meets
+                    the systems people actually use. That includes Artificial Intelligence for civic
+                    engagement, like making legislation, elections, and news bias easier for the public
+                    to understand; machine learning in sports, from valuing collegiate athletes to
+                    modeling performance; and intelligent devices for healthcare, such as prosthetics
+                    that monitor patient vitals. Across all of it, my goal is research that helps
+                    people make better decisions and reaches beyond the paper.
+                </p>
+                <ul class="tags">
+                    <li>Applied AI</li>
+                    <li>LLM Behavior</li>
+                    <li>Extended Reality</li>
+                    <li>Computational Social Science</li>
+                    <li>Civic Technology</li>
+                </ul>
+            </section>
+
             <section id="research" aria-labelledby="research-title">
                 <h2 id="research-title">Research</h2>
+                <div class="pub-list">
+                    <article class="pub">
+                        <p class="label">Systematic Mapping Study &middot; In progress</p>
+                        <h3>AI and XR in Medical Procedural Training</h3>
+                        <p class="pub-authors">A. Harvey, F. Fronchetti</p>
+                        <p>A PRISMA-aligned systematic mapping study on the joint use of AI and extended reality technologies in medical procedural training, co-authored with Dr. Felipe Fronchetti. Covers six databases (IEEE Xplore, ACM DL, ScienceDirect, SpringerNature, PubMed, Embase) with two-reviewer screening supplemented by a local LLM consistency pass, and maps the literature by clinical domain, AI and XR technology, evaluation type, and level of human intervention.</p>
+                        <ul class="tags tags-small">
+                            <li>Systematic Review</li>
+                            <li>LLM-Assisted Screening</li>
+                            <li>LaTeX / ACM</li>
+                            <li>Python</li>
+                        </ul>
+                    </article>
+                    <article class="pub">
+                        <p class="label">Independent Research</p>
+                        <h3>Intelligent Prosthetics for Remote Patient Monitoring</h3>
+                        <p>A two-part research paper: a PRISMA-aligned systematic mapping study of AI in prosthetics, followed by the gap-driven design of a prosthesis that extracts vital signs (heart rate, respiratory rate, SpO2, cuffless blood pressure) from arterial pulse signals using a 1D CNN and sequence model with IMU-conditioned motion artifact handling. Built a parametric 3D prosthetic model in Blender via Python to document sensor placement at the brachial pulse site.</p>
+                        <ul class="tags tags-small">
+                            <li>Deep Learning</li>
+                            <li>Signal Processing</li>
+                            <li>Blender / bpy</li>
+                            <li>Python</li>
+                            <li>LaTeX</li>
+                        </ul>
+                    </article>
+                    <article class="pub">
+                        <p class="label">Undergraduate Honors Thesis</p>
+                        <h3>The Agora: Civic Intelligence Platform</h3>
+                        <p>A full-stack civic intelligence platform combining live political data with LLM-driven analysis. Features LegisLens (RAG-based legal research over ChromaDB with a custom bias lexicon), a Media Bias Analyzer, an interactive D3 news map, an electoral data dashboard, and a Congress.gov bills scraper feeding legislative analytics.</p>
+                        <ul class="tags tags-small">
+                            <li>React</li>
+                            <li>TypeScript</li>
+                            <li>FastAPI</li>
+                            <li>ChromaDB</li>
+                            <li>PostgreSQL</li>
+                            <li>Google Cloud Run</li>
+                        </ul>
+                        <div class="pub-links">
+                            <a href="https://youtu.be/pzQLHgXiQN4" target="_blank" rel="noopener noreferrer" class="btn-outline">Demo<span class="visually-hidden"> (opens in a new tab)</span></a>
+                        </div>
+                    </article>
+                    <article class="pub">
+                        <p class="label">Independent Research &middot; In progress</p>
+                        <h3>Prompt Context and Vision-Language Models in Mammography</h3>
+                        <p>Tests whether open vision-language models change their mammogram readings on CBIS-DDSM when only the prompt context changes.</p>
+                        <ul class="tags tags-small">
+                            <li>Vision-Language Models</li>
+                            <li>Medical Imaging</li>
+                            <li>Python</li>
+                        </ul>
+                        <div class="pub-links">
+                            <a href="https://github.com/alexisharveyyy/vlm-mammo-context" target="_blank" rel="noopener noreferrer" class="btn-outline">Code<span class="visually-hidden"> (opens in a new tab)</span></a>
+                        </div>
+                    </article>
+                </div>
             </section>
 
             <section id="projects" aria-labelledby="projects-title">
                 <h2 id="projects-title">Selected Projects</h2>
+                <div class="project-grid">
+                    <article class="project">
+                        <h3>NowIL</h3>
+                        <p>A longitudinal NIL valuation platform for collegiate athletes, currently in active development as a real product. Tracks and dynamically projects estimated NIL values from live in-game performance using Playwright data collection, a PostgreSQL/SQLAlchemy backend, PyTorch LSTM and XGBoost models tracked with MLflow, and a FastAPI service layer.</p>
+                    </article>
+                    <article class="project">
+                        <h3>What-If Sports</h3>
+                        <p>A multi-task deep learning NIL valuation simulator for Division I men's basketball and a counterfactual companion to NowIL. Pairs a BiLSTM with attention against a multi-task Transformer with a shared encoder and separate classification and regression heads. XGBoost won on raw accuracy, while the Transformer achieved superior calibration (ECE 0.029).</p>
+                        <a href="https://github.com/alexisharveyyy/What-If-Sports" target="_blank" rel="noopener noreferrer" class="text-link">Code<span class="visually-hidden"> (opens in a new tab)</span></a>
+                    </article>
+                    <article class="project">
+                        <h3>Contract Wizard</h3>
+                        <p>AI-powered legal document platform built with Performance Contractors, featuring semantic search and LLM-driven clause summarization over a legal document repository with PDF ingestion workflows. Featured in WBRZ's coverage of LSU's AI showcase.</p>
+                        <a href="https://www.wbrz.com/news/lsu-students-present-how-ai-could-be-used-in-different-industries-during-showcase-monday/" target="_blank" rel="noopener noreferrer" class="text-link">News<span class="visually-hidden"> (opens in a new tab)</span></a>
+                    </article>
+                    <article class="project">
+                        <h3>Tetris ML Arena</h3>
+                        <p>The bot you just played. A Python game where a human plays Tetris side by side against machine learning and deep learning agents.</p>
+                        <a href="https://github.com/alexisharveyyy/tetris-ml-arena" target="_blank" rel="noopener noreferrer" class="text-link">Code<span class="visually-hidden"> (opens in a new tab)</span></a>
+                    </article>
+                </div>
             </section>
 
-            <section id="experience" aria-labelledby="experience-title">
-                <h2 id="experience-title">Experience</h2>
-            </section>
+            <div class="exp-honors">
+                <section id="experience" aria-labelledby="experience-title">
+                    <h2 id="experience-title">Experience</h2>
+                    <ol class="exp-list">
+                        <li class="exp">
+                            <p class="exp-date">Aug 2026 &middot; In progress</p>
+                            <div>
+                                <h3>PhD Student, RISE Lab</h3>
+                                <p class="exp-org">Louisiana State University</p>
+                                <p class="exp-desc">Conducting research on applied AI and LLMs under Dr. Felipe Fronchetti, in collaboration with LSU Health. Leading a systematic mapping study on AI and XR in medical procedural training and designing a VR user study.</p>
+                            </div>
+                        </li>
+                        <li class="exp">
+                            <p class="exp-date">Sep 2025 to Jan 2026</p>
+                            <div>
+                                <h3>Student Software Developer, CARTS</h3>
+                                <p class="exp-org">Louisiana State University</p>
+                                <p class="exp-desc">Developed and tested full-stack applications using C#, JavaScript, SQL, and front-end frameworks. Managed large relational datasets and contributed to software support and enhancement for transportation safety research.</p>
+                            </div>
+                        </li>
+                        <li class="exp">
+                            <p class="exp-date">Nov 2024 to Dec 2025</p>
+                            <div>
+                                <h3>Chapter President, Delta Zeta Sigma Chapter</h3>
+                                <p class="exp-org">Baton Rouge, LA</p>
+                                <p class="exp-desc">Led 400+ members, ran Executive Council meetings, planned events, managed budgets and contracts, and ensured chapter alignment with national standards.</p>
+                            </div>
+                        </li>
+                        <li class="exp">
+                            <p class="exp-date">Jul to Sep 2024</p>
+                            <div>
+                                <h3>Legal Clerk Extern, 19th Judicial District Court</h3>
+                                <p class="exp-org">Baton Rouge, LA</p>
+                                <p class="exp-desc">Collaborated with Judge Kelly Balfour and staff on legal proceedings, document preparation, and case research.</p>
+                            </div>
+                        </li>
+                        <li class="exp">
+                            <p class="exp-date">Aug 2022 to May 2024</p>
+                            <div>
+                                <h3>Men's Basketball Manager, LSU</h3>
+                                <p class="exp-org">LSU Men's Basketball</p>
+                                <p class="exp-desc">Managed team statistics, assisted coaches with recruitment and footage gathering, maintained equipment, and supported player conditioning.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </section>
 
-            <section id="honors" aria-labelledby="honors-title">
-                <h2 id="honors-title">Honors</h2>
-            </section>
+                <section id="honors" aria-labelledby="honors-title">
+                    <h2 id="honors-title">Honors</h2>
+                    <ul class="honors-list">
+                        <li>Board of Supervisors Scholarship</li>
+                        <li>LSU Alumni Scholar</li>
+                        <li>College Honors, Roger Hadfield Ogden Honors College (2026)</li>
+                        <li>President's Honor Roll (Fall 2025)</li>
+                        <li>Dean's List (Fall 2022, Spring 2023, Spring 2024, Spring 2026)</li>
+                    </ul>
+                </section>
+            </div>
 
             <section id="skills" aria-labelledby="skills-title">
                 <h2 id="skills-title">Skills</h2>
+                <div class="skill-grid">
+                    <div>
+                        <h3 class="label">Programming Languages</h3>
+                        <p>Python, TypeScript / JavaScript, C / C++, C#, Java, SQL, HTML / CSS</p>
+                    </div>
+                    <div>
+                        <h3 class="label">AI &amp; Machine Learning</h3>
+                        <p>PyTorch, XGBoost, RAG Pipelines, LLM Integration &amp; Evaluation, ChromaDB / pgvector</p>
+                    </div>
+                    <div>
+                        <h3 class="label">Frameworks &amp; Platforms</h3>
+                        <p>React / Vite, FastAPI / Django, .NET, PostgreSQL / SQLAlchemy, Apache Spark / HDFS, Firebase / Google Cloud, Git &amp; GitHub</p>
+                    </div>
+                    <div>
+                        <h3 class="label">Research Methods</h3>
+                        <p>Systematic Mapping Studies, User Study Design, Usability &amp; Accessibility Evaluation, Data Analytics, LaTeX / Overleaf</p>
+                    </div>
+                </div>
+                <p class="languages"><span class="label">Languages</span> English (Fluent), Spanish (Proficient), German (Beginner)</p>
             </section>
 
             <section id="contact" aria-labelledby="contact-title">
                 <h2 id="contact-title">Contact</h2>
+                <p>
+                    I'm always open to discussing research collaborations, applied AI projects,
+                    or ways to build technology with real-world impact.
+                </p>
+                <ul class="contact-links">
+                    <li><a href="mailto:alexis@harveyfamilia.com" class="text-link">Email</a></li>
+                    <li><a href="https://github.com/alexisharveyyy" target="_blank" rel="noopener noreferrer" class="text-link">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/alexis-harvey-334bb520b/" target="_blank" rel="noopener noreferrer" class="text-link">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+                </ul>
             </section>
         </main>
     </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Alexis Harvey</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
