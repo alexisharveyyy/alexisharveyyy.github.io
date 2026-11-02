@@ -556,6 +556,7 @@ h3 {
     .project .text-link {
         display: inline-flex;
         align-items: center;
+        min-width: 44px;
         min-height: 44px;
     }
 
