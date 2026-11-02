@@ -430,6 +430,12 @@ h3 {
     color: var(--muted);
 }
 
+.exp .text-link {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 13.5px;
+}
+
 .honors-list {
     padding-left: 20px;
     font-size: 15px;
@@ -553,7 +559,8 @@ h3 {
     .sidebar-links a,
     .btn-outline,
     .text-link,
-    .project .text-link {
+    .project .text-link,
+    .exp .text-link {
         display: inline-flex;
         align-items: center;
         min-width: 44px;
